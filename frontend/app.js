@@ -1,12 +1,7 @@
-// ============================================================
-//  API CRUD — Frontend (HTML + CSS + JavaScript puro)
-// ============================================================
 
-// Configuração da URL do backend (API CRUD)
-// Ajuste aqui ou para a URL correta do seu backend.
 const API_URL = "http://localhost:8080";
 
-// ---------- Elementos ----------
+
 const loginView = document.getElementById("login-view");
 const welcomeView = document.getElementById("welcome-view");
 const loginForm = document.getElementById("login-form");
@@ -26,10 +21,10 @@ const passwordInput = document.getElementById("password");
 const iconEye = document.getElementById("icon-eye");
 const iconEyeOff = document.getElementById("icon-eye-off");
 
-// ---------- Estado ----------
+
 let authenticatedUser = null;
 
-// ---------- Toggle de senha ----------
+
 function syncToggleIcons(isText) {
   iconEye.classList.toggle("hidden", isText);
   iconEyeOff.classList.toggle("hidden", !isText);
@@ -44,7 +39,6 @@ togglePassword.addEventListener("click", () => {
   setPasswordVisible(passwordInput.type === "password");
 });
 
-// ---------- Login ----------
 loginForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   loginError.hidden = true;
@@ -88,7 +82,7 @@ loginForm.addEventListener("submit", async (event) => {
   }
 });
 
-// ---------- Welcome ----------
+
 function getWelcomeMessage(user) {
   const type = String(user.type || "user").toLowerCase();
 
@@ -104,7 +98,6 @@ function getWelcomeMessage(user) {
 }
 
 function showWelcome(user) {
-  // textContent evita problemas de HTML nos dados vindos do backend
   welcomeName.textContent = user.name || "";
   welcomeMessage.textContent = getWelcomeMessage(user);
   welcomeType.textContent = String(user.type || "user").toUpperCase();
@@ -118,7 +111,7 @@ function showLogin() {
   loginView.hidden = false;
 }
 
-// ---------- Logout ----------
+
 logoutBtn.addEventListener("click", () => {
   authenticatedUser = null;
   emailInput.value = "";
@@ -128,5 +121,5 @@ logoutBtn.addEventListener("click", () => {
   showLogin();
 });
 
-// ---------- Inicialização ----------
+
 showLogin();
