@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>API CRUD</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <!-- Fundo com blobs animados -->
+    <div class="bg-scene" aria-hidden="true">
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+      <div class="blob blob-3"></div>
+    </div>
+
+    <main class="app-shell">
+      <!-- Tela de Login -->
+      <section id="login-view" class="card login-card">
+        <div id="login-error" class="error" role="alert" hidden></div>
+
+        <form id="login-form">
+          <div class="field">
+            <label for="email">E-mail</label>
+            <input id="email" type="email" placeholder="seu@email.com" autocomplete="email" autofocus required />
+          </div>
+
+          <div class="field">
+            <label for="password">Senha</label>
+            <div class="input-wrap">
+              <input id="password" type="password" placeholder="••••••••" autocomplete="current-password" required />
+              <button type="button" class="toggle-password" id="toggle-password" aria-label="Mostrar senha">
+                <svg id="icon-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"></path>
+                  <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+                <svg id="icon-eye-off" class="hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-10-8-10-8a18.45 18.45 0 0 1 5.06-5.94"></path>
+                  <path d="M9.9 4.24A9.12 12 0 0 1 12 4c7 0 10 8 10 8a18.5 18.5 0 0 1-5.16 5.96"></path>
+                  <path d="M14.12 14.12a3 3 0 1 1-4.24-4.24"></path>
+                  <line x1="1" y1="1" x2="23" y2="23"></line>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-primary" id="login-button">
+            <span class="spinner" id="login-spinner" hidden></span>
+            <span id="login-button-text">Entrar</span>
+          </button>
+        </form>
+      </section>
+
+      <!-- Tela de Acesso / Welcome -->
+      <section id="welcome-view" class="card welcome-card" hidden>
+        <h1 class="title">Bem-vindo, <span id="welcome-name"></span>!</h1>
+        <p class="subtitle" id="welcome-message"></p>
+        <span class="type-badge" id="welcome-type"></span>
+        <button type="button" class="btn-primary logout-btn" id="logout-btn">
+          <span class="spinner" hidden></span>
+          <span>Sair</span>
+        </button>
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
