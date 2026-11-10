@@ -82,7 +82,7 @@ loginForm.addEventListener("submit", async (event) => {
   loginSpinner.hidden = false;
 
   try {
-    const response = await fetch(`${API_URL}/auth/login`, {
+    const response = await fetch(`${API_URL}/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
@@ -141,7 +141,7 @@ registerForm.addEventListener("submit", async (event) => {
   registerSpinner.hidden = false;
 
   try {
-    const response = await fetch(`${API_URL}/auth/register`, {
+    const response = await fetch(`${API_URL}/usuarios`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name, email, password }),
