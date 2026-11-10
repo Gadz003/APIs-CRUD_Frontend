@@ -178,6 +178,17 @@ body {
   75% { transform: translateX(5px); }
 }
 
+/* ---------- Sucesso ---------- */
+.success-message {
+  background: rgba(74, 222, 128, 0.12);
+  border: 1px solid rgba(74, 222, 128, 0.35);
+  color: #86efac;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-size: 14px;
+  margin: 0 0 16px;
+}
+
 /* ---------- Botão ---------- */
 .btn-primary {
   width: 100%;

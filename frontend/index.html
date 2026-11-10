@@ -49,9 +49,53 @@
             <span id="login-button-text">Entrar</span>
           </button>
         </form>
+
+        <p class="footer-text">
+          Não tem conta? <button type="button" class="link" id="link-to-register">Cadastre-se</button>
+        </p>
       </section>
 
+      <!-- Tela de Cadastro -->
+      <section id="register-view" class="card register-card" hidden>
+        <h1 class="title">Criar conta</h1>
+        <p class="subtitle">Preencha os dados para se cadastrar.</p>
 
+        <div id="register-error" class="error" role="alert" hidden></div>
+        <p id="register-success" class="success-message" hidden></p>
+
+        <form id="register-form">
+          <div class="field">
+            <label for="reg-name">Nome</label>
+            <input id="reg-name" type="text" placeholder="Seu nome" autocomplete="name" required />
+          </div>
+
+          <div class="field">
+            <label for="reg-email">E-mail</label>
+            <input id="reg-email" type="email" placeholder="seu@email.com" autocomplete="email" required />
+          </div>
+
+          <div class="field">
+            <label for="reg-password">Senha</label>
+            <input id="reg-password" type="password" placeholder="••••••••" autocomplete="new-password" required />
+          </div>
+
+          <div class="field">
+            <label for="reg-confirm">Confirmar senha</label>
+            <input id="reg-confirm" type="password" placeholder="••••••••" autocomplete="new-password" required />
+          </div>
+
+          <button type="submit" class="btn-primary" id="register-button">
+            <span class="spinner" id="register-spinner" hidden></span>
+            <span id="register-button-text">Criar conta</span>
+          </button>
+        </form>
+
+        <p class="footer-text">
+          Já tem conta? <button type="button" class="link" id="link-to-login">Entrar</button>
+        </p>
+      </section>
+
+      <!-- Tela de Acesso / Welcome -->
       <section id="welcome-view" class="card welcome-card" hidden>
         <h1 class="title">Bem-vindo, <span id="welcome-name"></span>!</h1>
         <p class="subtitle" id="welcome-message"></p>
