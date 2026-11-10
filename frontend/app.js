@@ -1,5 +1,5 @@
 
-const API_URL = "http://localhost:8080";
+const API_URL = "http://localhost:3000";
 
 
 const loginView = document.getElementById("login-view");
