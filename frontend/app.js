@@ -1,9 +1,7 @@
-
 const API_URL = "http://localhost:3000";
 
 // ---------- Elementos ----------
 const loginView = document.getElementById("login-view");
-const welcomeView = document.getElementById("welcome-view");
 const registerView = document.getElementById("register-view");
 const loginForm = document.getElementById("login-form");
 const loginError = document.getElementById("login-error");
@@ -13,11 +11,6 @@ const loginSpinner = document.getElementById("login-spinner");
 const togglePassword = document.getElementById("toggle-password");
 const linkToRegister = document.getElementById("link-to-register");
 const linkToLogin = document.getElementById("link-to-login");
-
-const welcomeName = document.getElementById("welcome-name");
-const welcomeMessage = document.getElementById("welcome-message");
-const welcomeType = document.getElementById("welcome-type");
-const logoutBtn = document.getElementById("logout-btn");
 
 const registerForm = document.getElementById("register-form");
 const registerError = document.getElementById("register-error");
@@ -32,7 +25,8 @@ const iconEye = document.getElementById("icon-eye");
 const iconEyeOff = document.getElementById("icon-eye-off");
 
 // ---------- Estado ----------
-let authenticatedUser = null;
+const TOKEN_KEY = "token";
+const ADMIN_KEY = "admin";
 
 // ---------- Toggle de senha ----------
 function syncToggleIcons(isText) {
@@ -89,14 +83,30 @@ loginForm.addEventListener("submit", async (event) => {
     });
 
     const data = await response.json().catch(() => ({}));
+    const mensagem = data.mensagem || data.message || "";
 
-    if (!response.ok) {
-      throw new Error(data.message || data.error || "E-mail ou senha inválidos.");
+    if (mensagem.toLowerCase().includes("desativado")) {
+      loginError.textContent = mensagem;
+      loginError.hidden = false;
+      return;
     }
 
+    if (!response.ok) {
+      throw new Error(mensagem || "E-mail ou senha inválidos.");
+    }
+
+    const token = data.token;
     const user = data.user || data;
-    authenticatedUser = user;
-    showWelcome(user);
+    const admin = data.admin ?? user?.type === "admin";
+
+    if (!token) {
+      throw new Error("Não foi possível iniciar a sessão. Tente novamente.");
+    }
+
+    localStorage.setItem(TOKEN_KEY, token);
+    localStorage.setItem(ADMIN_KEY, String(admin));
+
+    location.href = "/Alunos/alunos.html";
   } catch (err) {
     loginError.textContent = err.message || "Não foi possível conectar ao servidor. Tente novamente.";
     loginError.hidden = false;
@@ -111,7 +121,7 @@ loginForm.addEventListener("submit", async (event) => {
 registerForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   registerError.hidden = true;
-  registerSuccess.hidden = true;
+  registerSuccess.hidden = false;
 
   const name = document.getElementById("reg-name").value.trim();
   const email = document.getElementById("reg-email").value.trim();
@@ -150,7 +160,7 @@ registerForm.addEventListener("submit", async (event) => {
     const data = await response.json().catch(() => ({}));
 
     if (!response.ok) {
-      throw new Error(data.message || data.error || "Não foi possível criar a conta.");
+      throw new Error(data.mensagem || data.message || "Não foi possível criar a conta.");
     }
 
     registerSuccess.textContent = "Conta criada com sucesso! Faça login.";
@@ -165,35 +175,10 @@ registerForm.addEventListener("submit", async (event) => {
   }
 });
 
-// ---------- Welcome ----------
-function getWelcomeMessage(user) {
-  const type = String(user.type || "user").toLowerCase();
-
-  if (type === "admin") {
-    return `Bem-vindo, ${user.name}! Sua conta possui acesso administrativo ao sistema.`;
-  }
-
-  if (type === "user") {
-    return `Bem-vindo, ${user.name}! Obrigado por acessar o sistema.`;
-  }
-
-  return `Bem-vindo, ${user.name}! Estamos felizes em tê-lo conosco.`;
-}
-
-function showWelcome(user) {
-  // textContent evita problemas de HTML nos dados vindos do backend
-  welcomeName.textContent = user.name || "";
-  welcomeMessage.textContent = getWelcomeMessage(user);
-  welcomeType.textContent = String(user.type || "user").toUpperCase();
-
-  loginView.hidden = true;
-  welcomeView.hidden = false;
-}
-
+// ---------- Telas ----------
 function showLogin() {
-  welcomeView.hidden = true;
-  loginView.hidden = false;
   registerView.hidden = true;
+  loginView.hidden = false;
 }
 
 function showRegister() {
@@ -201,17 +186,10 @@ function showRegister() {
   registerView.hidden = false;
 }
 
-// ---------- Logout ----------
-logoutBtn.addEventListener("click", () => {
-  authenticatedUser = null;
-  emailInput.value = "";
-  passwordInput.value = "";
-  setPasswordVisible(false);
-  loginError.hidden = true;
-  registerError.hidden = true;
-  registerSuccess.hidden = true;
+// ---------- Sessão ----------
+const token = localStorage.getItem(TOKEN_KEY);
+if (token) {
+  location.href = "/Alunos/alunos.html";
+} else {
   showLogin();
-});
-
-// ---------- Inicialização ----------
-showLogin();
+}

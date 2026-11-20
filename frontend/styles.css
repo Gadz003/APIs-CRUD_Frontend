@@ -232,36 +232,6 @@ body {
   to { transform: rotate(360deg); }
 }
 
-/* ---------- Welcome ---------- */
-.welcome-card {
-  text-align: center;
-}
-
-.welcome-card .title {
-  margin: 0 0 8px;
-  font-size: 26px;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-}
-
-.welcome-card .subtitle {
-  margin: 0 0 16px;
-  color: #9aa5c0;
-  font-size: 14px;
-}
-
-.type-badge {
-  display: inline-block;
-  padding: 5px 14px;
-  border-radius: 999px;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  color: #cdd8ff;
-  background: rgba(108, 140, 255, 0.15);
-  border: 1px solid rgba(108, 140, 255, 0.4);
-}
-
 /* ---------- Responsivo ---------- */
 @media (max-width: 480px) {
   .card {

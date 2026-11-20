@@ -1,6 +1,6 @@
 # API CRUD — Frontend
 
-Frontend simples de login da aplicação **API CRUD**, feito com **HTML, CSS e JavaScript puro** (sem frameworks).
+Frontend simples da aplicação **API CRUD** (cadastro de alunos), feito com **HTML, CSS e JavaScript puro** (sem frameworks).
 
 Tudo o que envolve o frontend (telas, interações, animações) está concentrado neste diretório, para que possa ser versionado em um repositório próprio separado do backend.
 
@@ -8,10 +8,18 @@ Tudo o que envolve o frontend (telas, interações, animações) está concentra
 
 ```
 frontend/
-├── index.html   # Estrutura das telas (login, cadastro e welcome)
-├── styles.css   # Estilos e animações (CSS)
-├── app.js       # Lógica da aplicação (JavaScript)
-└── favicon.svg  # Ícone da aba
+├── index.html        # Telas de Login e Cadastro
+├── styles.css        # Estilos e animações (CSS)
+├── app.js            # Lógica da aplicação (JavaScript)
+├── Alunos/           # Página de álbum de alunos
+│   ├── alunos.html
+│   ├── alunos.css
+│   └── alunos.js
+├── BarraNav/         # Barra de navegação (Sair / lista)
+│   └── barraNav.js
+└── Usuarios/         # Página de usuários
+    ├── usuarios.html
+    └── usuarios.js
 ```
 
 ## Como rodar
@@ -33,7 +41,7 @@ A URL base do backend fica em `frontend/app.js` (constante `API_URL`).
 ### Endpoint de login
 
 ```
-POST {API_URL}/auth/login
+POST {API_URL}/login
 ```
 
 ### Corpo da requisição
@@ -65,7 +73,7 @@ POST {API_URL}/auth/login
 ### Endpoint de cadastro
 
 ```
-POST {API_URL}/auth/register
+POST {API_URL}/usuarios
 ```
 
 ### Corpo da requisição
@@ -80,24 +88,46 @@ POST {API_URL}/auth/register
 { "message": "Conta criada com sucesso." }
 ```
 
+### Endpoint de alunos
+
+```
+GET {API_URL}/alunos
+```
+
+Headers:
+
+```
+Authorization: Bearer {token}
+```
+
+Resposta (200):
+
+```json
+[
+  { "id": 1, "nome": "João Silva", "email": "joao@email.com" }
+]
+```
+
 ## Telas
 
 1. **Login** (`frontend/index.html` + `frontend/app.js` + `frontend/styles.css`)
-   - Apenas e-mail e senha (com toggle de visibilidade)
+   - E-mail e senha (com toggle de visibilidade)
    - Validação básica e exibição de erros
    - Estado de loading com spinner no botão
-   - Link "Cadastre-se" → tela de cadastro
+   - Persistência do token e redirecionamento para a tela de alunos após o login
 
-2. **Cadastro** (`frontend/index.html` + `frontend/app.js` + `frontend/styles.css`)
+2. **Cadastro** (`frontend/index.html` + `frontend/app.js`)
    - Campos: nome, e-mail, senha e confirmar senha
    - Validação (campos obrigatórios, senha mínima de 6 caracteres, confirmação)
    - Estado de loading com spinner no botão
    - Mensagem de sucesso pós-cadastro
 
-3. **Welcome / Acesso** (`frontend/index.html` + `frontend/app.js` + `frontend/styles.css`)
-   - Mostra o **nome** do usuário: "Bem-vindo, {nome}!"
-   - Mostra a **mensagem de boas-vindas** com o **tipo** do usuário (admin/user)
-   - Botão de sair (logout)
+3. **Álbum de Alunos** (`frontend/Alunos/`)
+   - Lista os alunos cadastrados (requer token via `Authorization: Bearer`)
+   - Barra de navegação com opção de sair e, para administradores, acesso à lista de usuários
+
+4. **Usuários** (`frontend/Usuarios/`)
+   - Acesso administrativo à lista de usuários
 
 ## Build / Implantação
 

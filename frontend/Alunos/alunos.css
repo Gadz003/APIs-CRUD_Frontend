@@ -1,0 +1,12 @@
+#album {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.card-aluno {
+    width: 250px;
+    border: 1px solid #ccc;
+    padding: 1%;
+    margin: 0.5%;
+}
