@@ -121,7 +121,7 @@ loginForm.addEventListener("submit", async (event) => {
 registerForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   registerError.hidden = true;
-  registerSuccess.hidden = false;
+  registerSuccess.hidden = true;
 
   const name = document.getElementById("reg-name").value.trim();
   const email = document.getElementById("reg-email").value.trim();
