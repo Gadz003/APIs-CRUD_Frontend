@@ -28,6 +28,15 @@ const iconEyeOff = document.getElementById("icon-eye-off");
 const TOKEN_KEY = "token";
 const ADMIN_KEY = "admin";
 
+function decodeTokenPayload(token) {
+  try {
+    const base64 = token.split(".")[1].replace(/-/g, "+").replace(/_/g, "/");
+    return JSON.parse(atob(base64));
+  } catch {
+    return null;
+  }
+}
+
 // ---------- Toggle de senha ----------
 function syncToggleIcons(isText) {
   iconEye.classList.toggle("hidden", isText);
@@ -79,7 +88,7 @@ loginForm.addEventListener("submit", async (event) => {
     const response = await fetch(`${API_URL}/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ email, senha: password }),
     });
 
     const data = await response.json().catch(() => ({}));
@@ -96,8 +105,7 @@ loginForm.addEventListener("submit", async (event) => {
     }
 
     const token = data.token;
-    const user = data.user || data;
-    const admin = data.admin ?? user?.type === "admin";
+    const admin = Boolean(decodeTokenPayload(token)?.admin);
 
     if (!token) {
       throw new Error("Não foi possível iniciar a sessão. Tente novamente.");
@@ -154,7 +162,7 @@ registerForm.addEventListener("submit", async (event) => {
     const response = await fetch(`${API_URL}/usuarios`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, email, password }),
+      body: JSON.stringify({ usuario: { email, senha: password } }),
     });
 
     const data = await response.json().catch(() => ({}));
