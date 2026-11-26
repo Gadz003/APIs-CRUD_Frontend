@@ -18,8 +18,8 @@ export const criarNav = (pagina) => {
         'Lista de Usuários';
         novoBt.onclick = () => {
             location.href = pagina === 'usuarios' ?
-            '/Alunos/alunos.html' :
-            '/Usuarios/usuarios.html';
+            './jogos/jogos.html' :
+            './Usuarios/usuarios.html';
         };
         barraNav.appendChild(novoBt);
     }

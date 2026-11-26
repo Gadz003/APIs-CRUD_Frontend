@@ -114,7 +114,7 @@ loginForm.addEventListener("submit", async (event) => {
     localStorage.setItem(TOKEN_KEY, token);
     localStorage.setItem(ADMIN_KEY, String(admin));
 
-    location.href = "/Alunos/alunos.html";
+    location.href = "./jogos/jogos.html";
   } catch (err) {
     loginError.textContent = err.message || "Não foi possível conectar ao servidor. Tente novamente.";
     loginError.hidden = false;
@@ -195,9 +195,5 @@ function showRegister() {
 }
 
 // ---------- Sessão ----------
-const token = localStorage.getItem(TOKEN_KEY);
-if (token) {
-  location.href = "/Alunos/alunos.html";
-} else {
-  showLogin();
-}
+// Token expira em 1h (backend). Sempre iniciamos na tela de cadastro.
+showRegister();
